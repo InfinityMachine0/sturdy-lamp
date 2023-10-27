@@ -10,7 +10,7 @@ let path_to_git_repo = ( [ "/mnt/etc/nixos", $git_repo_name ] | path join | str 
 
 #######################################
 
-def to_continue []:[ null -> null ]{
+def to_continue []:[ null -> null ] {
 	mut string_input = "temp"
 	while true {
 		$string_input = ( input "continue? [y/n]\n" )
