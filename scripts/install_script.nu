@@ -74,6 +74,7 @@ def format_platform [ platform:int ] {
 #######################################
 
 let platform = ( select_thing "platform" "[1/2/3]" "1. laptop\n2. desktop\n3. virtualbox\n" )
+print ( [ $path_to_config, "values/platform.conf" ] | path join )
 doas $platform | save ( [ $path_to_config, "values/platform.conf" ] | path join )
 
 let gpu = ( select_thing "gpu" "[1/2]" "1. no gpu\n2. nvidia\n" )
