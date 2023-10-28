@@ -88,6 +88,8 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 	}
 	
 	
+	print ( [ $path_to_config, "values/platform.conf" ] | path join )
+
 	$platform | save ( [ $path_to_config, "values/platform.conf" ] | path join )
 	
 	
