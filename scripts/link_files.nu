@@ -155,8 +155,7 @@ def main [ fresh_install_input: int = 0 ] any -> any {
 
 	if $fresh_install == 1 {
 		let path_to_root = "/mnt"
-	}
-	else {
+	} else {
 		let path_to_root = "/"
 	}
 	
