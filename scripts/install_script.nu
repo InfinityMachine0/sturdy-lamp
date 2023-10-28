@@ -4,9 +4,6 @@ let path_to_config = "/mnt/etc/nixos/config_dir"
 
 let git_repo_name = "sturdy-lamp"
 
-print ( [ $path_to_config, "values/git_repo_name.conf" ] | path join ) 
-
-$git_repo_name | save ( [ $path_to_config, "values/git_repo_name.conf" ] | path join )
 
 let path_to_git_repo = ( [ "/mnt/etc/nixos", $git_repo_name ] | path join | str trim )
 
@@ -145,6 +142,8 @@ $git_email | save ( [ $path_to_config, "values/git_email.conf" ] | path join )
 format_platform $platform
 
 #######################################
+
+$git_repo_name | save ( [ $path_to_config, "values/git_repo_name.conf" ] | path join )
 
 # do you need github password
 if false {
