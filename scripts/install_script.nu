@@ -3,7 +3,7 @@
 let path_to_config = "/mnt/etc/nixos/config_dir"
 
 let git_repo_name = "sturdy-lamp"
-sudo $git_repo_name | save ( [ $path_to_config, "values/git_repo_name.conf" ] | path join | str trim )
+$git_repo_name | sudo save ( [ $path_to_config, "values/git_repo_name.conf" ] | path join | str trim )
 
 let path_to_git_repo = ( [ "/mnt/etc/nixos", $git_repo_name ] | path join | str trim )
 
@@ -73,33 +73,33 @@ def format_platform [ platform:int ] {
 #######################################
 
 let platform = ( select_thing "platform" "[1/2/3]" "1. laptop\n2. desktop\n3. virtualbox\n" )
-sudo $platform | save ( [ $path_to_config, "values/platform.conf" ] | path join )
+$platform | sudo save ( [ $path_to_config, "values/platform.conf" ] | path join )
 
 let gpu = ( select_thing "gpu" "[1/2]" "1. no gpu\n2. nvidia\n" )
-sudo $gpu | save ( [ $path_to_config, "values/gpu.conf" ] | path join )
+$gpu | sudo save ( [ $path_to_config, "values/gpu.conf" ] | path join )
 
 let hostname = ( choose_thing "hostname" | str trim )
-sudo $hostname | save ( [ $path_to_config, "values/hostname.conf" ] | path join )
+$hostname | sudo save ( [ $path_to_config, "values/hostname.conf" ] | path join )
 
 let username = ( choose_thing "username" | str trim )
-sudo $username | save ( [ $path_to_config, "values/username.conf" ] | path join )
+$username | sudo save ( [ $path_to_config, "values/username.conf" ] | path join )
 
 let ssh_port = ( choose_thing "ssh port" | str trim )
 
 let ssh_ports = ( [ "[ ", $ssh_port, " ]" ] | str join | str trim )
-sudo $ssh_ports | save ( [ $path_to_config, "values/ssh_ports.conf" ] | path join )
+$ssh_ports | sudo save ( [ $path_to_config, "values/ssh_ports.conf" ] | path join )
 
 let tcp_ports = ( [ "[ ", $ssh_port, " ]" ] | str join | str trim )
-sudo $tcp_ports | save ( [ $path_to_config, "values/tcp_ports.conf" ] | path join )
+$tcp_ports | sudo save ( [ $path_to_config, "values/tcp_ports.conf" ] | path join )
 
 let udp_ports = "[ ]"
-sudo $udp_ports | save ( [ $path_to_config, "values/udp_ports.conf" ] | path join )
+$udp_ports | sudo save ( [ $path_to_config, "values/udp_ports.conf" ] | path join )
 
 let git_username = ( choose_thing "git username" | str trim )
-sudo $git_username | save ( [ $path_to_config, "values/git_username.conf" ] | path join )
+$git_username | sudo save ( [ $path_to_config, "values/git_username.conf" ] | path join )
 
 let git_email = ( choose_thing "git email" | str trim )
-sudo $git_email | save ( [ $path_to_config, "values/git_email.conf" ] | path join )
+$git_email | sudo save ( [ $path_to_config, "values/git_email.conf" ] | path join )
 
 #######################################
 
