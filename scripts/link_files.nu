@@ -78,7 +78,7 @@ def read_from [ file: string ]: any -> string {
 	if $fresh_install == 1 {
 		return ( open --raw $file )
 	} else {
-		return ( read_from $file )
+		return ( doas open --raw $file )
 	}
 }
 
