@@ -3,8 +3,10 @@
 let path_to_config = "/mnt/etc/nixos/config_dir"
 
 let git_repo_name = "sturdy-lamp"
-let temp1 = ( [ $path_to_config, "values/git_repo_name.conf" ] | path join | str trim )
-sudo $git_repo_name > $temp1
+
+sudo su
+$git_repo_name | save ( [ $path_to_config, "values/git_repo_name.conf" ] | path join | str trim )
+su nixos
 
 let path_to_git_repo = ( [ "/mnt/etc/nixos", $git_repo_name ] | path join | str trim )
 
@@ -33,7 +35,7 @@ def to_continue []: any -> any {
 
 def select_thing [ thing: string, options: string, prompt_options: string ]: any -> int {
 	let prompt = ( [ "select ", $thing, ": ", $options, "\n", $prompt_options] | str join )
-	let $thing_selected = ( input $prompt | str trim )
+	let thing_selected = ( input $prompt | str trim )
 	if $thing_selected =~ ( $options | str replace --all '/' '' ) {
 		return ( $thing_selected | into int )
 	}
@@ -79,8 +81,9 @@ if $platform == -1 {
 	exit
 }
 
-let temp2 = ( [ $path_to_config, "values/platform.conf" ] | path join 
-sudo $platform > $temp2
+sudo su
+$platform | save ( [ $path_to_config, "values/platform.conf" ] | path join )
+su nixos
 
 #######################################
 
@@ -90,36 +93,52 @@ if $gpu == -1 {
 	exit
 }
 
-$gpu | sudo "save ( [ $path_to_config, "values/gpu.conf" ] | path join )"
+sudo su
+$gpu | save ( [ $path_to_config, "values/gpu.conf" ] | path join )
+su nixos
 
 #######################################
 
 let hostname = ( choose_thing "hostname" | str trim )
-$hostname | sudo save ( [ $path_to_config, "values/hostname.conf" ] | path join )
+sudo su
+$hostname | save ( [ $path_to_config, "values/hostname.conf" ] | path join )
+su nixos
 
 let username = ( choose_thing "username" | str trim )
-$username | sudo save ( [ $path_to_config, "values/username.conf" ] | path join )
+sudo su
+$username | save ( [ $path_to_config, "values/username.conf" ] | path join )
+su nixos
 
 #######################################
 
 let ssh_port = ( choose_thing "ssh port" | str trim )
 
 let ssh_ports = ( [ "[ ", $ssh_port, " ]" ] | str join | str trim )
-$ssh_ports | sudo save ( [ $path_to_config, "values/ssh_ports.conf" ] | path join )
+sudo su
+$ssh_ports | save ( [ $path_to_config, "values/ssh_ports.conf" ] | path join )
+su nixos
 
 let tcp_ports = ( [ "[ ", $ssh_port, " ]" ] | str join | str trim )
-$tcp_ports | sudo save ( [ $path_to_config, "values/tcp_ports.conf" ] | path join )
+sudo su
+$tcp_ports | save ( [ $path_to_config, "values/tcp_ports.conf" ] | path join )
+su nixos
 
 let udp_ports = "[ ]"
-$udp_ports | sudo save ( [ $path_to_config, "values/udp_ports.conf" ] | path join )
+sudo su
+$udp_ports | save ( [ $path_to_config, "values/udp_ports.conf" ] | path join )
+su nixos
 
 #######################################
 
 let git_username = ( choose_thing "git username" | str trim )
-$git_username | sudo save ( [ $path_to_config, "values/git_username.conf" ] | path join )
+sudo su
+$git_username | save ( [ $path_to_config, "values/git_username.conf" ] | path join )
+su nixos
 
 let git_email = ( choose_thing "git email" | str trim )
-$git_email | sudo save ( [ $path_to_config, "values/git_email.conf" ] | path join )
+sudo su
+$git_email | save ( [ $path_to_config, "values/git_email.conf" ] | path join )
+su nixos
 
 #######################################
 
@@ -131,7 +150,7 @@ format_platform $platform
 if false {
 	sudo git clone ( [ "https://github.com/InfinityMachine/", $git_repo_name ] | str join ) /mnt/etc/nixos
 }
-else 
+else {
 	sudo git clone ( [ "https://github.com/InfinityMachine/", $git_repo_name, ".git" ] | str join ) /mnt/etc/nixos
 }
 
@@ -145,4 +164,6 @@ source ./link_files.nu
 
 to_continue
 
-sudo "nixos-install --flake ( [ ( [ $path_to_config, "flake.nix" ] | path join | str trim ), $hostname ] | str join | str trim )"
+sudo su
+nixos-install --flake ( [ ( [ $path_to_config, "flake.nix" ] | path join | str trim ), $hostname ] | str join | str trim )
+su nixos
