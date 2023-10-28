@@ -1,5 +1,18 @@
 #! /usr/bin/env nu
 
+let path_to_root = "temp"
+	
+#######################################
+	
+let git_repo_name = "temp"
+
+let path_togit_repo = "temp"
+let path_to_config = "temp"
+let path_to_thing = "temp"
+let path_to_home = "temp"
+
+#######################################
+
 def creare_any_link [ start: string, destination: string ]: any -> any {
 	if $fresh_install == 1 {
 		ln -s $start $destination

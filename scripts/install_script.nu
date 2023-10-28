@@ -1,5 +1,11 @@
 #! /usr/bin/env nu
 
+let path_to_config = "/mnt/etc/nixos/config_dir"
+
+let git_repo_name = "sturdy-lamp"
+
+let path_to_git_repo = ( [ "/mnt/etc/nixos", $git_repo_name ] | path join )
+
 def to_continue []: any -> any {
 	mut string_input = "temp"
 	let prompt = "continue? [y/n]" 
@@ -65,14 +71,6 @@ def format_platform [ platform: int ]: any -> any {
 def main [ git_hub_password: int = 0 ]: any -> int {
 
 	to_continue
-
-	#######################################
-
-	let path_to_config = "/mnt/etc/nixos/config_dir"
-
-	let git_repo_name = "sturdy-lamp"
-
-	let path_to_git_repo = ( [ "/mnt/etc/nixos", $git_repo_name ] | path join )
 
 	#######################################
 
