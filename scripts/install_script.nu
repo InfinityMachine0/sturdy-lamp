@@ -4,9 +4,7 @@ let path_to_config = "/mnt/etc/nixos/config_dir"
 
 let git_repo_name = "sturdy-lamp"
 
-sudo su
 $git_repo_name | save ( [ $path_to_config, "values/git_repo_name.conf" ] | path join | str trim )
-su nixos
 
 let path_to_git_repo = ( [ "/mnt/etc/nixos", $git_repo_name ] | path join | str trim )
 
@@ -53,17 +51,17 @@ def choose_thing [ thing:string ]: any -> string {
 
 def format_platform [ platform:int ]: any -> any {
 	if $platform == 1 {
-		sudo nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko ../system/modules/btrfs/laptop_btrfs_config.nix
+		nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko ../system/modules/btrfs/laptop_btrfs_config.nix
 		to_continue
 		return $nothing
 	}
 	else if $platform == 2 {
-		sudo nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko ../system/modules/btrfs/desktop_btrfs_config.nix
+		nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko ../system/modules/btrfs/desktop_btrfs_config.nix
 		to_continue
 		return $nothing
 	}
 	else if $platform == 3 {
-		sudo nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko ../system/modules/btrfs/virtualbox_btrfs_config.nix
+		nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko ../system/modules/btrfs/virtualbox_btrfs_config.nix
 		to_continue
 		return $nothing
 	}
@@ -81,9 +79,9 @@ if $platform == -1 {
 	exit
 }
 
-sudo su
+
 $platform | save ( [ $path_to_config, "values/platform.conf" ] | path join )
-su nixos
+
 
 #######################################
 
@@ -93,52 +91,52 @@ if $gpu == -1 {
 	exit
 }
 
-sudo su
+
 $gpu | save ( [ $path_to_config, "values/gpu.conf" ] | path join )
-su nixos
+
 
 #######################################
 
 let hostname = ( choose_thing "hostname" | str trim )
-sudo su
+
 $hostname | save ( [ $path_to_config, "values/hostname.conf" ] | path join )
-su nixos
+
 
 let username = ( choose_thing "username" | str trim )
-sudo su
+
 $username | save ( [ $path_to_config, "values/username.conf" ] | path join )
-su nixos
+
 
 #######################################
 
 let ssh_port = ( choose_thing "ssh port" | str trim )
 
 let ssh_ports = ( [ "[ ", $ssh_port, " ]" ] | str join | str trim )
-sudo su
+
 $ssh_ports | save ( [ $path_to_config, "values/ssh_ports.conf" ] | path join )
-su nixos
+
 
 let tcp_ports = ( [ "[ ", $ssh_port, " ]" ] | str join | str trim )
-sudo su
+
 $tcp_ports | save ( [ $path_to_config, "values/tcp_ports.conf" ] | path join )
-su nixos
+
 
 let udp_ports = "[ ]"
-sudo su
+
 $udp_ports | save ( [ $path_to_config, "values/udp_ports.conf" ] | path join )
-su nixos
+
 
 #######################################
 
 let git_username = ( choose_thing "git username" | str trim )
-sudo su
+
 $git_username | save ( [ $path_to_config, "values/git_username.conf" ] | path join )
-su nixos
+
 
 let git_email = ( choose_thing "git email" | str trim )
-sudo su
+
 $git_email | save ( [ $path_to_config, "values/git_email.conf" ] | path join )
-su nixos
+
 
 #######################################
 
@@ -148,22 +146,21 @@ format_platform $platform
 
 # do you need github password
 if false {
-	sudo git clone ( [ "https://github.com/InfinityMachine/", $git_repo_name ] | str join ) /mnt/etc/nixos
+	git clone ( [ "https://github.com/InfinityMachine/", $git_repo_name ] | str join ) /mnt/etc/nixos
 }
 else {
-	sudo git clone ( [ "https://github.com/InfinityMachine/", $git_repo_name, ".git" ] | str join ) /mnt/etc/nixos
+	git clone ( [ "https://github.com/InfinityMachine/", $git_repo_name, ".git" ] | str join ) /mnt/etc/nixos
 }
 
-sudo nixos-generate-config --no-filesystems --root /mntnixos-generate
+nixos-generate-config --no-filesystems --root /mntnixos-generate
 
-sudo cp /mnt/etc/nixos/hardware-configuration.nix /mnt/etc/nixos/temp
+cp /mnt/etc/nixos/hardware-configuration.nix /mnt/etc/nixos/temp
 
-sudo rm /mnt/etc/nixos/configuration.nix
+rm /mnt/etc/nixos/configuration.nix
 
 source ./link_files.nu
 
 to_continue
 
-sudo su
+
 nixos-install --flake ( [ ( [ $path_to_config, "flake.nix" ] | path join | str trim ), $hostname ] | str join | str trim )
-su nixos
