@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -i nu -p nushell git
+#! nix-shell -i nu -p nushell git sudo
 
 let path_to_config = "/mnt/etc/nixos/config_dir"
 
