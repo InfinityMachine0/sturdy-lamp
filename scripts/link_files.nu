@@ -104,19 +104,19 @@ def select_platform [ platform: int ]: any -> any {
 		create_system_link "platform" "laptop_platform_file.nix" "platform_config.nix"
 		create_system_link "btrfs" "laptop_btrfs_config.nix" "btrfs_config.nix"
 		create_home_manager_link "hyprland" "hyprland_laptop_patch.nix" "hyprland_platform_patch.nix"
-		return $nothing
+		return 
 	}
 	else if $platform == 2 {
 		create_system_link "platform" "desktop_platform_file.nix" "platform_config.nix"
 		create_system_link "btrfs"  "desktop_btrfs_config.nix" "btrfs_config.nix"
 		create_home_manager_link "hyprland" "hyprland_desktop_patch.nix" "hyprland_platform_patch.nix"
-		return $nothing
+		return
 	}
 	else if $platform == 3 {
 		create_system_link "platform" "virtualbox_platform_file.nix" "platform_config.nix"
 		create_system_link "btrfs" "virtualbox_btrfs_config.nix" "btrfs_config.nix"
 		create_home_manager_link "hyprland" "hyprland_virtualbox_patch.nix" "hyprland_platform_patch.nix"
-		return $nothing
+		return
 	}
 	else {
 		print "incorrect input data\n"
@@ -128,12 +128,12 @@ def select_gpu [ gpu:int ]: any -> any {
 	if $gpu == 1 {
 		create_system_link "gpu" "no_gpu_config.nix" "gpu_config.nix"
 		create_home_manager_link "hyprland" "hyprland_no_nvidia_patch.nix" "hyprland_gpu_patch.nix"
-		return $nothing
+		return
 	}
 	else if $gpu == 2 {
 		create_system_link "gpu" "nvidia_gpu_config.nix" "gpu_config.nix"
 		create_home_manager_link "hyprland" "hyprland_nvidia_patch.nix" "hyprland_gpu_patch.nix"
-		return $nothing
+		return
 	}
 	else {
 		print "incorrect input data\n"

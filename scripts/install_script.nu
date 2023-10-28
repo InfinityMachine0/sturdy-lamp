@@ -5,7 +5,7 @@ def to_continue []: any -> any {
 	let prompt = "continue? [y/n]\n" 
 	while true {
 		print $prompt
-		$string_input = ( input )
+		$string_input = ( input | str trim )
 		if $string_input =~ "(?i)y" {
 			print "############\n"
 			return
