@@ -37,7 +37,7 @@ def select_thing [ thing: string, options: string, prompt_options: string ]: any
 		return ( $thing_selected | into int )
 	}
 	print "incorrect input data\n"
-	exit ( return 1 )
+	return -1
 }
 
 def choose_thing [ thing:string ]: any -> string {
@@ -73,16 +73,32 @@ def format_platform [ platform:int ]: any -> any {
 #######################################
 
 let platform = ( select_thing "platform" "[1/2/3]" "1. laptop\n2. desktop\n3. virtualbox\n" )
+
+if $platform == -1 {
+	exit
+}
+
 $platform | sudo save ( [ $path_to_config, "values/platform.conf" ] | path join )
 
+#######################################
+
 let gpu = ( select_thing "gpu" "[1/2]" "1. no gpu\n2. nvidia\n" )
+
+if $gpu == -1 {
+	exit
+}
+
 $gpu | sudo save ( [ $path_to_config, "values/gpu.conf" ] | path join )
+
+#######################################
 
 let hostname = ( choose_thing "hostname" | str trim )
 $hostname | sudo save ( [ $path_to_config, "values/hostname.conf" ] | path join )
 
 let username = ( choose_thing "username" | str trim )
 $username | sudo save ( [ $path_to_config, "values/username.conf" ] | path join )
+
+#######################################
 
 let ssh_port = ( choose_thing "ssh port" | str trim )
 
@@ -94,6 +110,8 @@ $tcp_ports | sudo save ( [ $path_to_config, "values/tcp_ports.conf" ] | path joi
 
 let udp_ports = "[ ]"
 $udp_ports | sudo save ( [ $path_to_config, "values/udp_ports.conf" ] | path join )
+
+#######################################
 
 let git_username = ( choose_thing "git username" | str trim )
 $git_username | sudo save ( [ $path_to_config, "values/git_username.conf" ] | path join )
