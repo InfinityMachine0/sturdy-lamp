@@ -14,7 +14,7 @@ let path_to_home = "temp"
 #######################################
 
 def creare_any_link [ start: string, destination: string ]: any -> any {
-	if $fresh_install_int == 1 {
+	if $fresh_install == 1 {
 		ln -s $start $destination
 	} else {
 		doas ln -s $start $destination
@@ -49,7 +49,7 @@ def create_basic_home_manager_link [ module: string ]: any -> any {
 #######################################
 
 def copy_any_file [ start: string, destination: string ]: any -> any {
-	if $fresh_install_int == 1 {
+	if $fresh_install == 1 {
 		cp $start $destination
 	} else {
 		doas cp $start $destination
@@ -73,7 +73,7 @@ def copy_home_manager_file [ module: string, git_repo_file: string config_file: 
 #######################################
 
 def read_from [ file: string ]: any -> string {
-	if $fresh_install_int == 1 {
+	if $fresh_install == 1 {
 		return ( open --raw $file )
 	} else {
 		return ( read_from $file )
@@ -83,7 +83,7 @@ def read_from [ file: string ]: any -> string {
 #######################################
 
 def save_to_file [ file: string ]: any -> any {
-	if $fresh_install_int == 1 {
+	if $fresh_install == 1 {
 		$in | save $file
 	} else {
 		$in | doas save $file
@@ -147,11 +147,9 @@ def select_gpu [ gpu:int ]: any -> any {
 
 #######################################
 
-def main [ fresh_install: string = "0" ] any -> any {
+def main [ fresh_install: int = 0 ] any -> any {
 
-	let fresh_install_int = ( $fresh_install | str trim | into int )
-
-	if $fresh_install_int == 1 {
+	if $fresh_install == 1 {
 		let path_to_root = "/mnt"
 	}
 	else {

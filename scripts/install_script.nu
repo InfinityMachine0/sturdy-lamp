@@ -65,7 +65,7 @@ def format_platform [ platform: int ]: any -> any {
 
 #######################################
 
-def main [ git_hub_password: string = "0" ]: any -> int {
+def main [ git_hub_password: int = 0 ]: any -> int {
 
 	to_continue
 
@@ -133,9 +133,9 @@ def main [ git_hub_password: string = "0" ]: any -> int {
 	
 	# do you need github password
 	if $git_hub_password == 0 {
-		git clone ( [ "https://github.com/InfinityMachine/", $git_repo_name, ".git" ] | str join ) /mnt/etc/nixos
-	} else {
 		git clone ( [ "https://github.com/InfinityMachine/", $git_repo_name ] | str join ) /mnt/etc/nixos
+	} else {
+		git clone ( [ "https://github.com/InfinityMachine/", $git_repo_name, ".git" ] | str join ) /mnt/etc/nixos
 	}
 	
 	to_continue
@@ -191,7 +191,7 @@ def main [ git_hub_password: string = "0" ]: any -> int {
 
 	#######################################
 	
-	nu ./link_files.nu 1
+	nu ./link_files.nu "1"
 	
 	to_continue
 
