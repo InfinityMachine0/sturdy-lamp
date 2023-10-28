@@ -1,6 +1,8 @@
 #! /usr/bin/env nu
 
 let path_to_root = "temp"
+
+let fresh_install = -1
 	
 #######################################
 	
@@ -147,7 +149,9 @@ def select_gpu [ gpu:int ]: any -> any {
 
 #######################################
 
-def main [ fresh_install: int = 0 ] any -> any {
+def main [ fresh_install_input: int = 0 ] any -> any {
+
+	let fresh_install = $fresh_install_input
 
 	if $fresh_install == 1 {
 		let path_to_root = "/mnt"
