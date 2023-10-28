@@ -65,7 +65,7 @@ def format_platform [ platform: int ]: any -> any {
 
 #######################################
 
-def main [ git_hub_password: int = 0 ]: any -> int {
+def main [ git_hub_password: string = "0" ]: any -> int {
 
 	to_continue
 
