@@ -134,17 +134,25 @@ def select_gpu [ gpu:int ]: any -> any {
 
 let platform = ( super_user open --raw ( [ $path_to_config, "values/platform.conf" ] | path join ) | str trim | into int )
 
+#######################################
+
 let gpu = ( super_user open --raw ( [ $path_to_config, "values/gpu.conf" ] | path join ) | str trim | into int )
+
+#######################################
 
 let hostname = ( super_user open --raw ( [ $path_to_config, "values/hostname.conf" ] | path join ) | str trim )
 
 let username = ( super_user open --raw ( [ $path_to_config, "values/username.conf" ] | path join ) | str trim )
 
+#######################################
+
 let ssh_ports = ( super_user open --raw ( [ $path_to_config, "values/ssh_ports.conf" ] | path join ) | str trim )
 
 let tcp_ports = ( super_user open --raw ( [ $path_to_config, "values/tcp_ports.conf" ] | path join ) | str trim )
 
-let udp_ports =( super_user open --raw ( [ $path_to_config, "values/udp_ports.conf" ] | path join ) | str trim )
+let udp_ports = ( super_user open --raw ( [ $path_to_config, "values/udp_ports.conf" ] | path join ) | str trim )
+
+#######################################
 
 let git_username = ( super_user open --raw ( [ $path_to_config, "values/git_username.conf" ] | path join ) | str trim )
 
