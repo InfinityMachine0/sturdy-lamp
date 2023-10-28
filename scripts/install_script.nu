@@ -50,15 +50,12 @@ def choose_thing [ thing: string ]: any -> string {
 def format_platform [ platform: int ]: any -> any {
 	if $platform == 1 {
 		nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko ( [ /home/nixos, $git_repo_name, system/modules/btrfs/laptop_btrfs_config.nix ] | path join )
-		to_continue
 		return
 	} else if $platform == 2 {
 		nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko ( [ /home/nixos, $git_repo_name, system/modules/btrfs/desktop_btrfs_config.nix ] | path join )
-		to_continue
 		return
 	} else if $platform == 3 {
 		nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko ( [ /home/nixos, $git_repo_name, system/modules/btrfs/virtualbox_btrfs_config.nix ] | path join )
-		to_continue
 		return
 	} else {
 		print "incorrect input data\n"
@@ -123,15 +120,27 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 	let git_email = ( choose_thing "git email" | str trim )	
 
 	print "\n"
-	
-	#######################################
 
 	to_continue
 	
+	#######################################
+	
 	format_platform $platform
+
+	to_continue
 	
 	#######################################
 	
+	# do you need github password
+	if $git_hub_password == 0 {
+		git clone ( [ "https://github.com/InfinityMachine/", $git_repo_name, ".git" ] | str join ) /mnt/etc/nixos
+	} else {
+		git clone ( [ "https://github.com/InfinityMachine/", $git_repo_name ] | str join ) /mnt/etc/nixos
+	}
+	
+	to_continue
+
+	#######################################
 	$git_repo_name | save ( [ $path_to_config, "values/git_repo_name.conf" ] | path join )
 
 	#######################################
@@ -162,24 +171,23 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 
 	#######################################
 	
-	# do you need github password
-	if $git_hub_password == 0 {
-		git clone ( [ "https://github.com/InfinityMachine/", $git_repo_name, ".git" ] | str join ) /mnt/etc/nixos
-	} else {
-		git clone ( [ "https://github.com/InfinityMachine/", $git_repo_name ] | str join ) /mnt/etc/nixos
-	}
-	
 	nixos-generate-config --no-filesystems --root /mntnixos-generate
 
 	to_continue
+
+	#######################################
 	
 	mv /mnt/etc/nixos/hardware-configuration.nix /mnt/etc/nixos/temp
 	
 	rm /mnt/etc/nixos/configuration.nix
+
+	#######################################
 	
 	nu ./link_files.nu 1
 	
 	to_continue
+
+	#######################################
 	
 	nixos-install --flake ( [ ( [ $path_to_config, "flake.nix" ] | path join | str trim ), $hostname ] | str join )
 }
