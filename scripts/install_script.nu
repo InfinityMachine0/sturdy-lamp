@@ -125,6 +125,8 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 	print "\n"
 	
 	#######################################
+
+	to_continue
 	
 	format_platform $platform
 	
@@ -168,8 +170,10 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 	}
 	
 	nixos-generate-config --no-filesystems --root /mntnixos-generate
+
+	to_continue
 	
-	cp /mnt/etc/nixos/hardware-configuration.nix /mnt/etc/nixos/temp
+	mv /mnt/etc/nixos/hardware-configuration.nix /mnt/etc/nixos/temp
 	
 	rm /mnt/etc/nixos/configuration.nix
 	

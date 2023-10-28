@@ -16,8 +16,7 @@ let path_to_home = "temp"
 def creare_any_link [ start: string, destination: string ]: any -> any {
 	if $fresh_install == 1 {
 		ln -s $start $destination
-	}
-	else {
+	} else {
 		doas ln -s $start $destination
 	}
 }
@@ -52,8 +51,7 @@ def create_basic_home_manager_link [ module: string ]: any -> any {
 def copy_any_file [ start: string, destination: string ]: any -> any {
 	if $fresh_install == 1 {
 		cp $start $destination
-	}
-	else {
+	} else {
 		doas cp $start $destination
 	}
 }
@@ -77,8 +75,7 @@ def copy_home_manager_file [ module: string, git_repo_file: string config_file: 
 def read_from [ file: string ]: any -> string {
 	if $fresh_install == 1 {
 		return ( open --raw $file )
-	}
-	else {
+	} else {
 		return ( read_from $file )
 	}
 }
@@ -88,8 +85,7 @@ def read_from [ file: string ]: any -> string {
 def save_to_file [ file: string ]: any -> any {
 	if $fresh_install == 1 {
 		$in | save $file
-	}
-	else {
+	} else {
 		$in | doas save $file
 	}
 }
@@ -118,20 +114,17 @@ def select_platform [ platform: int ]: any -> any {
 		create_system_link "btrfs" "laptop_btrfs_config.nix" "btrfs_config.nix"
 		create_home_manager_link "hyprland" "hyprland_laptop_patch.nix" "hyprland_platform_patch.nix"
 		return 
-	}
-	else if $platform == 2 {
+	} else if $platform == 2 {
 		create_system_link "platform" "desktop_platform_file.nix" "platform_config.nix"
 		create_system_link "btrfs"  "desktop_btrfs_config.nix" "btrfs_config.nix"
 		create_home_manager_link "hyprland" "hyprland_desktop_patch.nix" "hyprland_platform_patch.nix"
 		return
-	}
-	else if $platform == 3 {
+	} else if $platform == 3 {
 		create_system_link "platform" "virtualbox_platform_file.nix" "platform_config.nix"
 		create_system_link "btrfs" "virtualbox_btrfs_config.nix" "btrfs_config.nix"
 		create_home_manager_link "hyprland" "hyprland_virtualbox_patch.nix" "hyprland_platform_patch.nix"
 		return
-	}
-	else {
+	} else {
 		print "incorrect input data\n"
 		exit
 	}
@@ -142,13 +135,11 @@ def select_gpu [ gpu:int ]: any -> any {
 		create_system_link "gpu" "no_gpu_config.nix" "gpu_config.nix"
 		create_home_manager_link "hyprland" "hyprland_no_nvidia_patch.nix" "hyprland_gpu_patch.nix"
 		return
-	}
-	else if $gpu == 2 {
+	} else if $gpu == 2 {
 		create_system_link "gpu" "nvidia_gpu_config.nix" "gpu_config.nix"
 		create_home_manager_link "hyprland" "hyprland_nvidia_patch.nix" "hyprland_gpu_patch.nix"
 		return
-	}
-	else {
+	} else {
 		print "incorrect input data\n"
 		exit
 	}
