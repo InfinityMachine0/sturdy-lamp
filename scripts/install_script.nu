@@ -1,6 +1,6 @@
 #! /usr/bin/env nu
 
-def to_continue []: any -> any {
+def to_continue []: [ any -> any ] {
 	mut string_input = "temp"
 	while true {
 		$string_input = ( input "continue? [y/n]\n" )
