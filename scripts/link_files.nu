@@ -30,65 +30,65 @@ let path_to_home = ( [ $path_to_root, "home" ] | path join | str trim  )
 
 #######################################
 
-def create_link [ type: string, module: string, git_repo_file: string config_file: string ]: null -> null {
+def create_link [ type: string, module: string, git_repo_file: string config_file: string ]: any -> any {
 	let path_to_git_repo_module_file = ( [ $path_to_git_repo, $type, "modules", $module, $git_repo_file ] | path join )
 	let path_to_config_module_file = ( [ $path_to_config, $type, "modules", $module, $config_file ] | path join )
 	super_user ln -s $path_to_git_repo_module_file $path_to_config_module_file
 }
 
-def create_system_link [ module: string, git_repo_file: string config_file: string ]: null -> null {
+def create_system_link [ module: string, git_repo_file: string config_file: string ]: any -> any {
 	create_link "system" $module $git_repo_file $config_file
 }
 
-def create_home_manager_link [ module: string, git_repo_file: string config_file: string ]: null -> null {
+def create_home_manager_link [ module: string, git_repo_file: string config_file: string ]: any -> any {
 	create_link "home-manager" $module $git_repo_file $config_file
 }
 
-def create_basic_system_link [ module: string ]: [ null -> null ] {
+def create_basic_system_link [ module: string ]: [ any -> any ] {
 	let file_name = ( [ $module, "_config.nix" ] | str join )
 	create_system_link $module $file_name $file_name
 }
 
-def create_basic_home_manager_link [ module: string ]: null -> null {
+def create_basic_home_manager_link [ module: string ]: any -> any {
 	let file_name = ( [ $module, "_config.nix" ] | str join )
 	create_home_manager_link $module $file_name $file_name
 }
 
 #######################################
 
-def copy_file [ type: string, module: string, git_repo_file: string, config_file: string ]: null -> null {
+def copy_file [ type: string, module: string, git_repo_file: string, config_file: string ]: any -> any {
 	let path_to_git_repo_module_file = ( [ $path_to_git_repo, $type, "modules", $module, $git_repo_file ] | path join )
 	let path_to_config_module_file = ( [ $path_to_config, $type, "modules", $module, $config_file ] | path join )
 	super_user cp $path_to_git_repo_module_file $path_to_config_module_file
 }
 
-def copy_system_file [ module: string, git_repo_file: string config_file: string ]: null -> null {
+def copy_system_file [ module: string, git_repo_file: string config_file: string ]: any -> any {
 	copy_file "system" $module $git_repo_file $config_file
 }
 
-def copy_home_manager_file [ module: string, git_repo_file: string config_file: string ]: null -> null {
+def copy_home_manager_file [ module: string, git_repo_file: string config_file: string ]: any -> any {
 	copy_file "home-manager" $module $git_repo_file $config_file
 }
 
 #######################################
 
-def replace_string [ type: string, module: string, config_file: string, string_to_replace: string, string_replacment: string ]: null -> null {
+def replace_string [ type: string, module: string, config_file: string, string_to_replace: string, string_replacment: string ]: any -> any {
 	let path_to_config_module_file = ( [ $path_to_config, $type, "modules", $module, $config_file ] | path join )
 
 	super_user open --raw $path_to_config_module_file | str replace $string_to_replace $string_replacment | save $path_to_config_module_file
 }
 
-def replace_system_string [ module: string, config_file: string, string_to_replace: string, string_replacment: string ]: null -> null {
+def replace_system_string [ module: string, config_file: string, string_to_replace: string, string_replacment: string ]: any -> any {
 	replace_string "system" $module $config_file $string_to_replace $string_replacment
 }
 
-def replace_home_manager_string [ module: string, config_file: string, string_to_replace: string, string_replacment: string ]: null -> null {
+def replace_home_manager_string [ module: string, config_file: string, string_to_replace: string, string_replacment: string ]: any -> any {
 	replace_string "home-manager" $module $config_file $string_to_replace $string_replacment
 }
 
 #######################################
 
-def select_platform [ platform: int ]: null -> null {
+def select_platform [ platform: int ]: any -> any {
 	if $platform == 1 {
 		create_system_link "platform" "laptop_platform_file.nix" "platform_config.nix"
 		create_system_link "btrfs" "laptop_btrfs_config.nix" "btrfs_config.nix"
@@ -113,7 +113,7 @@ def select_platform [ platform: int ]: null -> null {
 	}
 }
 
-def select_gpu [ gpu:int ]: null -> null {
+def select_gpu [ gpu:int ]: any -> any {
 	if $gpu == 1 {
 		create_system_link "gpu" "no_gpu_config.nix" "gpu_config.nix"
 		create_home_manager_link "hyprland" "hyprland_no_nvidia_patch.nix" "hyprland_gpu_patch.nix"
