@@ -2,11 +2,13 @@
 
 def to_continue []: any -> any {
 	mut string_input = "temp"
+	let prompt = "continue? [y/n]\n" 
 	while true {
-		$string_input = ( input "continue? [y/n]\n" )
+		print $prompt
+		$string_input = ( input )
 		if $string_input =~ "(?i)y" {
 			print "############\n"
-			return $nothing
+			return
 		}
 		else if $string_input =~ "(?i)n" { 
 			print "############\n"
@@ -23,7 +25,8 @@ def to_continue []: any -> any {
 
 def select_thing [ thing: string, options: string, prompt_options: string ]: any -> int {
 	let prompt = ( [ "select ", $thing, ": ", $options, "\n", $prompt_options] | str join )
-	let thing_selected = ( input $prompt | str trim )
+	print $prompt
+	let thing_selected = ( input | str trim )
 	if $thing_selected =~ ( $options | str replace --all '/' '' ) {
 		return ( $thing_selected | into int )
 	}
@@ -33,7 +36,8 @@ def select_thing [ thing: string, options: string, prompt_options: string ]: any
 
 def choose_thing [ thing: string ]: any -> string {
 	let prompt = ( [ "choose ", $thing, ": (no white spaces)\n" ] | str join )
-	let thing_chosen = ( input $prompt | str trim )
+	print $prompt
+	let thing_chosen = ( input | str trim )
 	return $thing_chosen
 }
 
@@ -43,17 +47,17 @@ def format_platform [ platform: int ]: any -> any {
 	if $platform == 1 {
 		nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko ../system/modules/btrfs/laptop_btrfs_config.nix
 		to_continue
-		return $nothing
+		return
 	}
 	else if $platform == 2 {
 		nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko ../system/modules/btrfs/desktop_btrfs_config.nix
 		to_continue
-		return $nothing
+		return
 	}
 	else if $platform == 3 {
 		nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko ../system/modules/btrfs/virtualbox_btrfs_config.nix
 		to_continue
-		return $nothing
+		return
 	}
 	else {
 		print "incorrect input data\n"
