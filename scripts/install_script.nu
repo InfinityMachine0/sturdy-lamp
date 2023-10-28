@@ -141,6 +141,14 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 	to_continue
 
 	#######################################
+	
+	mkdir $path_to_config
+	mkdir ( [ $path_to_config, "system" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager" ] | path join )
+	mkdir ( [ $path_to_config, "values" ] | path join )
+
+	#######################################
+
 	$git_repo_name | save ( [ $path_to_config, "values/git_repo_name.conf" ] | path join )
 
 	#######################################
