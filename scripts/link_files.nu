@@ -8,7 +8,7 @@ let fresh_install = -1
 	
 let git_repo_name = "temp"
 
-let path_togit_repo = "temp"
+let path_to_git_repo = "temp"
 let path_to_config = "temp"
 let path_to_thing = "temp"
 let path_to_home = "temp"
