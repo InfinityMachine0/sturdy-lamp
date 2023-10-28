@@ -18,7 +18,7 @@ else if $option_selected =~ "[nN]" {
 }
 else {
 	print "incorrect input data\n"
-	exit 1
+	exit
 }
 
 let git_repo_name = ( super_user open --raw ( [ $path_to_config, "values/git_repo_name.conf" ] | path join ) | str trim )
@@ -109,7 +109,7 @@ def select_platform [ platform: int ]: any -> any {
 	}
 	else {
 		print "incorrect input data\n"
-		exit 1
+		exit
 	}
 }
 
@@ -126,7 +126,7 @@ def select_gpu [ gpu:int ]: any -> any {
 	}
 	else {
 		print "incorrect input data\n"
-		exit 1
+		exit
 	}
 }
 

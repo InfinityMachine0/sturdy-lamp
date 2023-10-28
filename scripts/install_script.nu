@@ -20,7 +20,7 @@ def to_continue []: any -> any {
 		else if $string_input =~ "(?i)n" { 
 			print "############\n"
 			print "stoping the script"
-			exit 1
+			exit
 		} 
 		else { 
 			print "\n"
@@ -37,7 +37,7 @@ def select_thing [ thing: string, options: string, prompt_options: string ]: any
 		return ( $thing_selected | into int )
 	}
 	print "incorrect input data\n"
-	exit 1
+	exit
 }
 
 def choose_thing [ thing:string ]: any -> string {
@@ -66,7 +66,7 @@ def format_platform [ platform:int ]: any -> any {
 	}
 	else {
 		print "incorrect input data\n"
-		exit 1
+		exit
 	}
 }
 
