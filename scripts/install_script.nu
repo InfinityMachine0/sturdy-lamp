@@ -179,7 +179,7 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 
 	#######################################
 	
-	nixos-generate-config --no-filesystems --root /mntnixos-generate
+	nixos-generate-config --no-filesystems --root /mnt
 
 	to_continue
 
