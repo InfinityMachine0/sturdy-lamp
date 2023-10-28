@@ -37,7 +37,7 @@ def select_thing [ thing: string, options: string, prompt_options: string ]: any
 		return ( $thing_selected | into int )
 	}
 	print "incorrect input data\n"
-	exit
+	exit ( return 1 )
 }
 
 def choose_thing [ thing:string ]: any -> string {
