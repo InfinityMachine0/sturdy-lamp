@@ -159,7 +159,7 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 	
 	rm /mnt/etc/nixos/configuration.nix
 	
-	source ./link_files.nu 1
+	nu ./link_files.nu 1
 	
 	to_continue
 	
