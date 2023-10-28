@@ -133,9 +133,9 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 	
 	# do you need github password
 	if $git_hub_password == 0 {
-		git clone ( [ "git://github.com/InfinityMachine/", $git_repo_name, ".git" ] | str join ) /mnt/etc/nixos
+		git clone ( [ "git://github.com/InfinityMachine0/", $git_repo_name, ".git" ] | str join ) /mnt/etc/nixos
 	} else {
-		git clone ( [ "https://github.com/InfinityMachine/", $git_repo_name ] | str join ) /mnt/etc/nixos
+		git clone ( [ "https://github.com/InfinityMachine0/", $git_repo_name ] | str join ) /mnt/etc/nixos
 	}
 	
 	to_continue
