@@ -9,7 +9,7 @@ let path_to_git_repo = ( [ "/mnt/etc/nixos", $git_repo_name ] | path join | str 
 
 #######################################
 
-def to_continue [] {
+def to_continue []: [ null -> null ] {
 	mut string_input = "temp"
 	while true {
 		$string_input = ( input "continue? [y/n]\n" )
@@ -30,7 +30,7 @@ def to_continue [] {
 
 #######################################
 
-def select_thing [ thing: string, options: string, prompt_options: string ] {
+def select_thing [ thing: string, options: string, prompt_options: string ]: [ null -> int ] {
 	let prompt = ( [ "select ", $thing, ": ", $options, "\n", $prompt_options] | str join )
 	let $thing_selected = ( input $prompt | str trim )
 	if $thing_selected =~ ( $options | str replace --all '/' '' ) {
@@ -40,7 +40,7 @@ def select_thing [ thing: string, options: string, prompt_options: string ] {
 	exit 1
 }
 
-def choose_thing [ thing:string ] {
+def choose_thing [ thing:string ]: [ null -> string ] {
 	let prompt = ( [ "choose ", $thing, ": (no white spaces)\n" ] | str join )
 	let thing_chosen = ( input $prompt | str trim )
 	return $thing_chosen
@@ -48,7 +48,7 @@ def choose_thing [ thing:string ] {
 
 #######################################
 
-def format_platform [ platform:int ] {
+def format_platform [ platform:int ]: [ null -> null ] {
 	if $platform == 1 {
 		sudo nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko ../system/modules/btrfs/laptop_btrfs_config.nix
 		to_continue
