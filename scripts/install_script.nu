@@ -9,13 +9,11 @@ def to_continue []: any -> any {
 		if $string_input =~ "(?i)y" {
 			print "\n############\n"
 			return
-		}
-		else if $string_input =~ "(?i)n" { 
+		} else if $string_input =~ "(?i)n" { 
 			print "\n############\n"
 			print "stoping the script"
 			exit
-		} 
-		else { 
+		} else { 
 			print "\n"
 		}
 	}
@@ -45,21 +43,18 @@ def choose_thing [ thing: string ]: any -> string {
 
 def format_platform [ platform: int ]: any -> any {
 	if $platform == 1 {
-		nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko ../system/modules/btrfs/laptop_btrfs_config.nix
+		nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko ( [ /home/nixos, $git_repo_name, system/modules/btrfs/laptop_btrfs_config.nix ] | path join )
 		to_continue
 		return
-	}
-	else if $platform == 2 {
-		nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko ../system/modules/btrfs/desktop_btrfs_config.nix
+	} else if $platform == 2 {
+		nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko ../system/modules/btrfs/desktop_btrfs_config.nix ( [ /home/nixos, $git_repo_name, system/modules/btrfs/desktop_btrfs_config.nix ] | path join )
 		to_continue
 		return
-	}
-	else if $platform == 3 {
+	} else if $platform == 3 {
 		nix --extra-experimental-features nix-command --extra-experimental-features flakes run github:nix-community/disko -- --mode disko ../system/modules/btrfs/virtualbox_btrfs_config.nix
 		to_continue
 		return
-	}
-	else {
+	} else {
 		print "incorrect input data\n"
 		exit
 	}
@@ -82,6 +77,8 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 	#######################################
 
 	let platform = ( select_thing "platform" "[1/2/3]" "1. laptop\n2. desktop\n3. virtualbox" )
+
+	print "\n"
 	
 	if $platform == -1 {
 		exit
@@ -90,6 +87,8 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 	#######################################
 	
 	let gpu = ( select_thing "gpu" "[1/2]" "1. no gpu\n2. nvidia" )
+
+	print "\n"
 	
 	if $gpu == -1 {
 		exit
@@ -98,12 +97,18 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 	#######################################
 	
 	let hostname = ( choose_thing "hostname" | str trim )
+
+	print "\n"
 	
 	let username = ( choose_thing "username" | str trim )
+
+	print "\n"
 	
 	#######################################
 	
 	let ssh_port = ( choose_thing "ssh port" | str trim )
+
+	print "\n"
 	
 	let ssh_ports = ( [ "[ ", $ssh_port, " ]" ] | str join | str trim )
 	
@@ -114,8 +119,12 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 	#######################################
 	
 	let git_username = ( choose_thing "git username" | str trim )
+
+	print "\n"
 	
 	let git_email = ( choose_thing "git email" | str trim )	
+
+	print "\n"
 	
 	#######################################
 	
@@ -156,8 +165,7 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 	# do you need github password
 	if $git_hub_password == 0 {
 		git clone ( [ "https://github.com/InfinityMachine/", $git_repo_name, ".git" ] | str join ) /mnt/etc/nixos
-	}
-	else {
+	} else {
 		git clone ( [ "https://github.com/InfinityMachine/", $git_repo_name ] | str join ) /mnt/etc/nixos
 	}
 	
