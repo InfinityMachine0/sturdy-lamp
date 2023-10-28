@@ -87,12 +87,6 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 		exit
 	}
 	
-	
-	print ( [ $path_to_config, "values/platform.conf" ] | path join )
-
-	$platform | save ( [ $path_to_config, "values/platform.conf" ] | path join )
-	
-	
 	#######################################
 	
 	let gpu = ( select_thing "gpu" "[1/2]" "1. no gpu\n2. nvidia" )
@@ -101,21 +95,11 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 		exit
 	}
 	
-	
-	$gpu | save ( [ $path_to_config, "values/gpu.conf" ] | path join )
-	
-	
 	#######################################
 	
 	let hostname = ( choose_thing "hostname" | str trim )
 	
-	$hostname | save ( [ $path_to_config, "values/hostname.conf" ] | path join )
-	
-	
 	let username = ( choose_thing "username" | str trim )
-	
-	$username | save ( [ $path_to_config, "values/username.conf" ] | path join )
-	
 	
 	#######################################
 	
@@ -123,30 +107,15 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 	
 	let ssh_ports = ( [ "[ ", $ssh_port, " ]" ] | str join | str trim )
 	
-	$ssh_ports | save ( [ $path_to_config, "values/ssh_ports.conf" ] | path join )
-	
-	
 	let tcp_ports = ( [ "[ ", $ssh_port, " ]" ] | str join | str trim )
 	
-	$tcp_ports | save ( [ $path_to_config, "values/tcp_ports.conf" ] | path join )
-	
-	
 	let udp_ports = "[ ]"
-	
-	$udp_ports | save ( [ $path_to_config, "values/udp_ports.conf" ] | path join )
-	
 	
 	#######################################
 	
 	let git_username = ( choose_thing "git username" | str trim )
 	
-	$git_username | save ( [ $path_to_config, "values/git_username.conf" ] | path join )
-	
-	
-	let git_email = ( choose_thing "git email" | str trim )
-	
-	$git_email | save ( [ $path_to_config, "values/git_email.conf" ] | path join )
-	
+	let git_email = ( choose_thing "git email" | str trim )	
 	
 	#######################################
 	
@@ -155,6 +124,34 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 	#######################################
 	
 	$git_repo_name | save ( [ $path_to_config, "values/git_repo_name.conf" ] | path join )
+
+	#######################################
+	
+	$platform | save ( [ $path_to_config, "values/platform.conf" ] | path join )
+
+	$gpu | save ( [ $path_to_config, "values/gpu.conf" ] | path join )
+	
+	#######################################
+	
+	$hostname | save ( [ $path_to_config, "values/hostname.conf" ] | path join )
+	
+	$username | save ( [ $path_to_config, "values/username.conf" ] | path join )
+	
+	#######################################
+	
+	$ssh_ports | save ( [ $path_to_config, "values/ssh_ports.conf" ] | path join )
+	
+	$tcp_ports | save ( [ $path_to_config, "values/tcp_ports.conf" ] | path join )
+	
+	$udp_ports | save ( [ $path_to_config, "values/udp_ports.conf" ] | path join )
+
+	#######################################
+	
+	$git_username | save ( [ $path_to_config, "values/git_username.conf" ] | path join )
+	
+	$git_email | save ( [ $path_to_config, "values/git_email.conf" ] | path join )
+
+	#######################################
 	
 	# do you need github password
 	if $git_hub_password == 0 {
