@@ -2,16 +2,16 @@
 
 def to_continue []: any -> any {
 	mut string_input = "temp"
-	let prompt = "continue? [y/n]\n" 
+	let prompt = "continue? [y/n]" 
 	while true {
 		print $prompt
 		$string_input = ( input | str trim )
 		if $string_input =~ "(?i)y" {
-			print "############\n"
+			print "\n############\n"
 			return
 		}
 		else if $string_input =~ "(?i)n" { 
-			print "############\n"
+			print "\n############\n"
 			print "stoping the script"
 			exit
 		} 
@@ -30,12 +30,12 @@ def select_thing [ thing: string, options: string, prompt_options: string ]: any
 	if $thing_selected =~ ( $options | str replace --all '/' '' ) {
 		return ( $thing_selected | into int )
 	}
-	print "incorrect input data\n"
+	print "incorrect input data"
 	return ( -1 )
 }
 
 def choose_thing [ thing: string ]: any -> string {
-	let prompt = ( [ "choose ", $thing, ": (no white spaces)\n" ] | str join )
+	let prompt = ( [ "choose ", $thing, ": (no white spaces)" ] | str join )
 	print $prompt
 	let thing_chosen = ( input | str trim )
 	return $thing_chosen
@@ -81,7 +81,7 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 
 	#######################################
 
-	let platform = ( select_thing "platform" "[1/2/3]" "1. laptop\n2. desktop\n3. virtualbox\n" )
+	let platform = ( select_thing "platform" "[1/2/3]" "1. laptop\n2. desktop\n3. virtualbox" )
 	
 	if $platform == -1 {
 		exit
@@ -93,7 +93,7 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 	
 	#######################################
 	
-	let gpu = ( select_thing "gpu" "[1/2]" "1. no gpu\n2. nvidia\n" )
+	let gpu = ( select_thing "gpu" "[1/2]" "1. no gpu\n2. nvidia" )
 	
 	if $gpu == -1 {
 		exit
