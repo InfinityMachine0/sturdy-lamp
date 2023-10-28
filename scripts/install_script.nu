@@ -191,7 +191,7 @@ def main [ git_hub_password: int = 0 ]: any -> int {
 
 	#######################################
 	
-	nu ./link_files.nu "1"
+	nu ( [ "/home/nixos", $git_repo_name, "link_files.nu" ] | path join ) 1
 	
 	to_continue
 
