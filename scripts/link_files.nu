@@ -6,22 +6,18 @@ let option_selected = ( input $prompt_1 | str trim )
 
 mut path_to_root = "temp"
 
-mut super_user = sudo
-
 if $option_selected =~ "[yY]" {
 	$path_to_root = "/mnt"
-	$super_user = sudo
 }
 else if $option_selected =~ "[nN]" {
 	$path_to_root = "/"
-	$super_user = doas
 }
 else {
 	print "incorrect input data\n"
 	exit
 }
 
-let git_repo_name = ( super_user open --raw ( [ $path_to_config, "values/git_repo_name.conf" ] | path join ) | str trim )
+let git_repo_name = ( doas open --raw ( [ $path_to_config, "values/git_repo_name.conf" ] | path join ) | str trim )
 
 let path_togit_repo = ( [ $path_to_root, "etc/nixos/", $git_repo_name ] | path join | str trim ) 
 let path_to_config = ( [ $path_to_root, "etc/nixos/config_dir" ] | path join | str trim )
@@ -33,7 +29,7 @@ let path_to_home = ( [ $path_to_root, "home" ] | path join | str trim  )
 def create_link [ type: string, module: string, git_repo_file: string config_file: string ]: any -> any {
 	let path_to_git_repo_module_file = ( [ $path_to_git_repo, $type, "modules", $module, $git_repo_file ] | path join )
 	let path_to_config_module_file = ( [ $path_to_config, $type, "modules", $module, $config_file ] | path join )
-	super_user ln -s $path_to_git_repo_module_file $path_to_config_module_file
+	doas ln -s $path_to_git_repo_module_file $path_to_config_module_file
 }
 
 def create_system_link [ module: string, git_repo_file: string config_file: string ]: any -> any {
@@ -59,7 +55,7 @@ def create_basic_home_manager_link [ module: string ]: any -> any {
 def copy_file [ type: string, module: string, git_repo_file: string, config_file: string ]: any -> any {
 	let path_to_git_repo_module_file = ( [ $path_to_git_repo, $type, "modules", $module, $git_repo_file ] | path join )
 	let path_to_config_module_file = ( [ $path_to_config, $type, "modules", $module, $config_file ] | path join )
-	super_user cp $path_to_git_repo_module_file $path_to_config_module_file
+	doas cp $path_to_git_repo_module_file $path_to_config_module_file
 }
 
 def copy_system_file [ module: string, git_repo_file: string config_file: string ]: any -> any {
@@ -75,7 +71,7 @@ def copy_home_manager_file [ module: string, git_repo_file: string config_file: 
 def replace_string [ type: string, module: string, config_file: string, string_to_replace: string, string_replacment: string ]: any -> any {
 	let path_to_config_module_file = ( [ $path_to_config, $type, "modules", $module, $config_file ] | path join )
 
-	super_user open --raw $path_to_config_module_file | str replace $string_to_replace $string_replacment | save $path_to_config_module_file
+	doas open --raw $path_to_config_module_file | str replace $string_to_replace $string_replacment | save $path_to_config_module_file
 }
 
 def replace_system_string [ module: string, config_file: string, string_to_replace: string, string_replacment: string ]: any -> any {
@@ -132,31 +128,31 @@ def select_gpu [ gpu:int ]: any -> any {
 
 #######################################
 
-let platform = ( super_user open --raw ( [ $path_to_config, "values/platform.conf" ] | path join ) | str trim | into int )
+let platform = ( doas open --raw ( [ $path_to_config, "values/platform.conf" ] | path join ) | str trim | into int )
 
 #######################################
 
-let gpu = ( super_user open --raw ( [ $path_to_config, "values/gpu.conf" ] | path join ) | str trim | into int )
+let gpu = ( doas open --raw ( [ $path_to_config, "values/gpu.conf" ] | path join ) | str trim | into int )
 
 #######################################
 
-let hostname = ( super_user open --raw ( [ $path_to_config, "values/hostname.conf" ] | path join ) | str trim )
+let hostname = ( doas open --raw ( [ $path_to_config, "values/hostname.conf" ] | path join ) | str trim )
 
-let username = ( super_user open --raw ( [ $path_to_config, "values/username.conf" ] | path join ) | str trim )
-
-#######################################
-
-let ssh_ports = ( super_user open --raw ( [ $path_to_config, "values/ssh_ports.conf" ] | path join ) | str trim )
-
-let tcp_ports = ( super_user open --raw ( [ $path_to_config, "values/tcp_ports.conf" ] | path join ) | str trim )
-
-let udp_ports = ( super_user open --raw ( [ $path_to_config, "values/udp_ports.conf" ] | path join ) | str trim )
+let username = ( doas open --raw ( [ $path_to_config, "values/username.conf" ] | path join ) | str trim )
 
 #######################################
 
-let git_username = ( super_user open --raw ( [ $path_to_config, "values/git_username.conf" ] | path join ) | str trim )
+let ssh_ports = ( doas open --raw ( [ $path_to_config, "values/ssh_ports.conf" ] | path join ) | str trim )
 
-let git_email = ( super_user open --raw ( [ $path_to_config, "values/git_email.conf" ] | path join ) | str trim )
+let tcp_ports = ( doas open --raw ( [ $path_to_config, "values/tcp_ports.conf" ] | path join ) | str trim )
+
+let udp_ports = ( doas open --raw ( [ $path_to_config, "values/udp_ports.conf" ] | path join ) | str trim )
+
+#######################################
+
+let git_username = ( doas open --raw ( [ $path_to_config, "values/git_username.conf" ] | path join ) | str trim )
+
+let git_email = ( doas open --raw ( [ $path_to_config, "values/git_email.conf" ] | path join ) | str trim )
 
 #######################################
 
@@ -208,7 +204,7 @@ create_basic_home_manager_link "starship"
 
 #######################################
 
-super_user cp ( [ $path_to_git_repo, "home-manager/modules/wallpapers" ] | path join ) ( [ "/mnt/home", $username ] | path join )
+doas cp ( [ $path_to_git_repo, "home-manager/modules/wallpapers" ] | path join ) ( [ "/mnt/home", $username ] | path join )
 
 #######################################
 
@@ -219,27 +215,27 @@ create_basic_home_manager_link "zellij"
 
 #######################################
 
-super_user ln -s ( [ $path_to_git_repo, "home-manager/home.nix" ] | path join ) ( [ $path_to_config, "home-manager/home.nix" ] | path join )
+doas ln -s ( [ $path_to_git_repo, "home-manager/home.nix" ] | path join ) ( [ $path_to_config, "home-manager/home.nix" ] | path join )
 
 #######################################
 
-super_user ln -s ( [ $path_to_git_repo, "scripts/hyprland.sh" ] | path join ) ( [ $path_to_config, "scripts/hyprland.sh" ] | path join )
-super_user ln -s ( [ $path_to_git_repo, "scripts/update_system.nu" ] | path join ) ( [ $path_to_config, "scripts/update_system.nu" ] | path join )
-super_user ln -s ( [ $path_to_git_repo, "scripts/link_files.nu" ] | path join ) ( [ $path_to_config, "scripts/link_files.nu" ] | path join )
-super_user ln -s ( [ $path_to_git_repo, "scripts/refresh_config.nu" ] | path join ) ( [ $path_to_config, "scripts/refresh_config.nu" ] | path join )
-super_user ln -s ( [ $path_to_git_repo, "scripts/refresh_config.nu" ] | path join ) ( [ $path_to_config, "scripts/refresh_config_true.nu" ] | path join )
+doas ln -s ( [ $path_to_git_repo, "scripts/hyprland.sh" ] | path join ) ( [ $path_to_config, "scripts/hyprland.sh" ] | path join )
+doas ln -s ( [ $path_to_git_repo, "scripts/update_system.nu" ] | path join ) ( [ $path_to_config, "scripts/update_system.nu" ] | path join )
+doas ln -s ( [ $path_to_git_repo, "scripts/link_files.nu" ] | path join ) ( [ $path_to_config, "scripts/link_files.nu" ] | path join )
+doas ln -s ( [ $path_to_git_repo, "scripts/refresh_config.nu" ] | path join ) ( [ $path_to_config, "scripts/refresh_config.nu" ] | path join )
+doas ln -s ( [ $path_to_git_repo, "scripts/refresh_config.nu" ] | path join ) ( [ $path_to_config, "scripts/refresh_config_true.nu" ] | path join )
 
-super_user ln -s ( [ $path_to_git_repo, "scripts/hyprland.sh" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/hyprland.sh" ] | path join )
-super_user ln -s ( [ $path_to_git_repo, "scripts/update_system.nu" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/update_system.nu" ] | path join )
-super_user ln -s ( [ $path_to_git_repo, "scripts/link_files.nu" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/link_files.nu" ] | path join )
-super_user ln -s ( [ $path_to_git_repo, "scripts/refresh_config.nu" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/refresh_config.nu" ] | path join )
-super_user ln -s ( [ $path_to_git_repo, "scripts/refresh_config_true.nu" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/refresh_config_true.nu" ] | path join )
+doas ln -s ( [ $path_to_git_repo, "scripts/hyprland.sh" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/hyprland.sh" ] | path join )
+doas ln -s ( [ $path_to_git_repo, "scripts/update_system.nu" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/update_system.nu" ] | path join )
+doas ln -s ( [ $path_to_git_repo, "scripts/link_files.nu" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/link_files.nu" ] | path join )
+doas ln -s ( [ $path_to_git_repo, "scripts/refresh_config.nu" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/refresh_config.nu" ] | path join )
+doas ln -s ( [ $path_to_git_repo, "scripts/refresh_config_true.nu" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/refresh_config_true.nu" ] | path join )
 
 #######################################
 
 create_basic_system_link "bluetooth"
 create_basic_system_link "cups"
-create_basic_system_link "super_user"
+create_basic_system_link "doas"
 
 #######################################
 
@@ -295,17 +291,17 @@ replace_system_string "users" "no_edit_users_config.nix" "USERNAME_REPLACE" $use
 
 #######################################
 
-super_user ln -s ( [ $path_to_git_repo, "system/configuration.nix" ] | path join ) ( [ $path_to_config, "system/configuration.nix" ] | path join )
+doas ln -s ( [ $path_to_git_repo, "system/configuration.nix" ] | path join ) ( [ $path_to_config, "system/configuration.nix" ] | path join )
 
 #######################################
 
-super_user cp ( [ $path_to_thing, "temp/hardware-configuration.nix" ] ) ( [ $path_to_config, "system/hardware-configuration.nix" ] | path join )
+doas cp ( [ $path_to_thing, "temp/hardware-configuration.nix" ] ) ( [ $path_to_config, "system/hardware-configuration.nix" ] | path join )
 
 #######################################
 
-super_user ln -s ( [ $path_to_git_repo, "flake.nix" ] | path join ) ( [ $path_to_config, "edit_this_flake.nix" ] | path join )
+doas ln -s ( [ $path_to_git_repo, "flake.nix" ] | path join ) ( [ $path_to_config, "edit_this_flake.nix" ] | path join )
 
-super_user cp ( [ $path_to_git_repo, "flake.nix" ] | path join ) ( [ $path_to_config, "flake.nix" ] | path join )
+doas cp ( [ $path_to_git_repo, "flake.nix" ] | path join ) ( [ $path_to_config, "flake.nix" ] | path join )
 
-super_user open --raw ( [ $path_to_config, "flake.nix" ] | path join ) | str replace "USERNAME_REPLACE" $username | save ( [ $path_to_config, "flake.nix" ] | path join )
-super_user open --raw ( [ $path_to_config, "flake.nix" ] | path join ) | str replace "HOSTNAME_REPLACE" $hostname | save ( [ $path_to_config, "flake.nix" ] | path join )
+doas open --raw ( [ $path_to_config, "flake.nix" ] | path join ) | str replace "USERNAME_REPLACE" $username | save ( [ $path_to_config, "flake.nix" ] | path join )
+doas open --raw ( [ $path_to_config, "flake.nix" ] | path join ) | str replace "HOSTNAME_REPLACE" $hostname | save ( [ $path_to_config, "flake.nix" ] | path join )
