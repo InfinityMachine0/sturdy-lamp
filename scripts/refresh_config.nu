@@ -8,4 +8,4 @@ let path_togit_repo = ( [ "/etc/nixos/", $git_repo_name ] | path join | str trim
 doas cp ( [ $path_to_git_repo, "scripts/refresh_config_true.nu" ] | path join | str trim ) /etc/nixos/temp
 doas cp ( [ $path_to_git_repo, "scripts/link_files.nu" ] | path join | str trim ) /etc/nixos/temp
 
-nu /etc/nixos/temp/refresh_config_true.nu &
+nu /etc/nixos/temp/refresh_config_true.nu

@@ -139,7 +139,7 @@ sudo cp /mnt/etc/nixos/hardware-configuration.nix /mnt/etc/nixos/temp
 
 sudo rm /mnt/etc/nixos/configuration.nix
 
-nu ./link_files.nu
+source ./link_files.nu
 
 to_continue
 

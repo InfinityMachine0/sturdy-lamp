@@ -14,4 +14,4 @@ doas rm -r ( [ $path_to_config, "home-manager" ] | path join | str trim )
 doas rm -r ( [ $path_to_config, "scripts" ] | path join | str trim )
 doas rm -r ( [ "/home", $username, "personal_scripts" ] | path join | str trim )
 
-nu ./link_files.nu
+source ./link_files.nu
