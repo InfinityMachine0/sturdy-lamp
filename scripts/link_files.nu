@@ -163,7 +163,7 @@ def main [ fresh_install_input: int = 0 ] any -> any {
 	
 	$git_repo_name = ( read_from ( [ $path_to_config, "values/git_repo_name.conf" ] | path join ) )
 	
-	$path_togit_repo = ( [ $path_to_root, "etc/nixos/", $git_repo_name ] | path join | str trim ) 
+	$path_to_git_repo = ( [ $path_to_root, "etc/nixos/", $git_repo_name ] | path join | str trim ) 
 	$path_to_config = ( [ $path_to_root, "etc/nixos/config_dir" ] | path join | str trim )
 	$path_to_thing = ( [ $path_to_root, "etc/nixos" ] | path join | str trim  )
 	$path_to_home = ( [ $path_to_root, "home" ] | path join | str trim  )
