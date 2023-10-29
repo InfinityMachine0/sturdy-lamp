@@ -367,7 +367,7 @@ def main [ fresh_install: int = 0 ] any -> any {
 	
 	#######################################
 	
-	create_basic_home_manager_link "systemd-boot" $fresh_install $path_to_git_repo $path_to_config
+	create_basic_system_link "systemd-boot" $fresh_install $path_to_git_repo $path_to_config
 	create_basic_system_link "trackpad" $fresh_install $path_to_git_repo $path_to_config
 	
 	#######################################
