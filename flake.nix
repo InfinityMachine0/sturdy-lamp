@@ -23,15 +23,11 @@
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nixvim, disko, ... }: 
-  let
-    NixHost = HOSTNAME_REPLACE;
-    NixUser = USERNAME_REPLACE;
-  in
   {
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
-      ${NixHost} = nixpkgs.lib.nixosSystem {
+      HOSTNAME_REPLACE = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; }; # Pass flake inputs to our config
         
         modules = [ 
@@ -42,7 +38,7 @@
           home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users."${NixUser}" = {
+              home-manager.users."USERNAME_REPLACE" = {
                 imports = [
                   nixvim.homeManagerModules.nixvim
                   ./home-manager/home.nix 
