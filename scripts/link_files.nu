@@ -136,11 +136,15 @@ def select_gpu [ gpu:int, fresh_install: int, path_to_git_repo: string, path_to_
 
 def main [ fresh_install: int = 0 ] any -> any {
 
+	mut path_to_root_temp = "temp"
+
 	if $fresh_install == 1 {
-		let path_to_root = "/mnt"
+		$path_to_root_temp = "/mnt"
 	} else {
-		let path_to_root = "/"
+		$path_to_root_temp = "/"
 	}
+
+	let path_to_root = $path_to_root_temp
 	
 	#######################################
 
