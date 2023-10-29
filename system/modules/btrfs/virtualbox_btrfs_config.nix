@@ -68,6 +68,13 @@
                         "noatime"
                       ];
                     };
+                    "/tmp" = {
+                      mountpoint = "tmp";
+                      mountOptions = [
+                        "compress-force=zstd:1"
+                        "noatime"
+                      ];
+                    };
                   };
                 };
               };
