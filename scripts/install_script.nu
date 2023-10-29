@@ -65,7 +65,7 @@ def format_platform [ platform: int ]: any -> any {
 
 #######################################
 
-def main []: any -> int {
+def main []: any -> any {
 	let platform = ( select_thing "platform" "[1/2/3]" "1. laptop\n2. desktop\n3. virtualbox" )
 
 	print " "
@@ -250,6 +250,4 @@ def main []: any -> int {
 	#######################################
 	
 	print ( [ $path_to_config, "#", $hostname ] | str join )
-
-	return 0
 }

@@ -149,7 +149,7 @@ def select_gpu [ gpu:int, fresh_install: int, path_to_git_repo: string, path_to_
 
 #######################################
 
-def main [ fresh_install: int = 0 ] any -> int {
+def main [ fresh_install: int = 0 ] any -> any {
 
 	mut path_to_root_temp = "temp"
 
@@ -369,7 +369,5 @@ def main [ fresh_install: int = 0 ] any -> int {
 	
 	read_from ( [ $path_to_config, "flake.nix" ] | path join ) $fresh_install | str replace "USERNAME_REPLACE" $username | save_to_file ( [ $path_to_config, "flake.nix" ] | path join ) $fresh_install
 	read_from ( [ $path_to_config, "flake.nix" ] | path join ) $fresh_install | str replace "HOSTNAME_REPLACE" $hostname | save_to_file ( [ $path_to_config, "flake.nix" ] | path join ) $fresh_install
-
-	return 0
 }
 
