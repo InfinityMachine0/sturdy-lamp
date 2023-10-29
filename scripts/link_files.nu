@@ -143,11 +143,12 @@ def main [ fresh_install: int = 0 ] any -> any {
 	}
 	
 	#######################################
+
+	let path_to_config = ( [ $path_to_root, "etc/nixos/config_dir" ] | path join | str trim )
 	
 	let git_repo_name = ( read_from ( [ $path_to_config, "values/git_repo_name.conf" ] | path join ) )
 	
 	let path_to_git_repo = ( [ $path_to_root, "etc/nixos/", $git_repo_name ] | path join | str trim ) 
-	let path_to_config = ( [ $path_to_root, "etc/nixos/config_dir" ] | path join | str trim )
 	let path_to_thing = ( [ $path_to_root, "etc/nixos" ] | path join | str trim  )
 	let path_to_home = ( [ $path_to_root, "home" ] | path join | str trim  )
 	
