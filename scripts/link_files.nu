@@ -16,7 +16,7 @@ def creare_any_link [ start: string, destination: string, fresh_install: int ]: 
 
 def create_link [ type: string, module: string, git_repo_file: string config_file: string, fresh_install: int, path_to_git_repo: string, path_to_config: string ]: any -> any {
 
-	mkdir ( [ $path_to_config, $type, "modules", $module ] )
+	mkdir ( [ $path_to_config, $type, "modules", $module ] | path join )
 
 	let path_to_git_repo_module_file = ( [ $path_to_git_repo, $type, "modules", $module, $git_repo_file ] | path join )
 	let path_to_config_module_file = ( [ $path_to_config, $type, "modules", $module, $config_file ] | path join )
