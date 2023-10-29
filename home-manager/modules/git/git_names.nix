@@ -1,7 +1,7 @@
 { inputs, lib, config, pkgs, ... }:
 let
-  GitName = GIT_USERNAME_REPLACE;
-  GitEmail = GIT_EMAIL_REPLACE;
+  GitName = "GIT_USERNAME_REPLACE";
+  GitEmail = "GIT_EMAIL_REPLACE";
 in 
 {
   programs = { # configuring programs
