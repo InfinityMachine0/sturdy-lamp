@@ -245,21 +245,21 @@ def main [ fresh_install: int = 0 ] any -> any {
 	
 	#######################################
 	
-	creare_any_link ( [ $path_to_git_repo, "home-manager/home.nix" ] | path join ) ( [ $path_to_config, "home-manager/home.nix" ] | path join )
+	creare_any_link ( [ $path_to_git_repo, "home-manager/home.nix" ] | path join ) ( [ $path_to_config, "home-manager/home.nix" ] | path join ) $fresh_install
 	
 	#######################################
 	
-	creare_any_link ( [ $path_to_git_repo, "scripts/hyprland.sh" ] | path join ) ( [ $path_to_config, "scripts/hyprland.sh" ] | path join ) $fresh_install $path_to_git_repo $path_to_config
-	creare_any_link ( [ $path_to_git_repo, "scripts/update_system.nu" ] | path join ) ( [ $path_to_config, "scripts/update_system.nu" ] | path join ) $fresh_install $path_to_git_repo $path_to_config
-	creare_any_link ( [ $path_to_git_repo, "scripts/link_files.nu" ] | path join ) ( [ $path_to_config, "scripts/link_files.nu" ] | path join ) $fresh_install $path_to_git_repo $path_to_config
-	creare_any_link ( [ $path_to_git_repo, "scripts/refresh_config.nu" ] | path join ) ( [ $path_to_config, "scripts/refresh_config.nu" ] | path join ) $fresh_install $path_to_git_repo $path_to_config
-	creare_any_link ( [ $path_to_git_repo, "scripts/refresh_config.nu" ] | path join ) ( [ $path_to_config, "scripts/refresh_config_true.nu" ] | path join ) $fresh_install $path_to_git_repo $path_to_config
+	creare_any_link ( [ $path_to_git_repo, "scripts/hyprland.sh" ] | path join ) ( [ $path_to_config, "scripts/hyprland.sh" ] | path join ) $fresh_install
+	creare_any_link ( [ $path_to_git_repo, "scripts/update_system.nu" ] | path join ) ( [ $path_to_config, "scripts/update_system.nu" ] | path join ) $fresh_install
+	creare_any_link ( [ $path_to_git_repo, "scripts/link_files.nu" ] | path join ) ( [ $path_to_config, "scripts/link_files.nu" ] | path join ) $fresh_install
+	creare_any_link ( [ $path_to_git_repo, "scripts/refresh_config.nu" ] | path join ) ( [ $path_to_config, "scripts/refresh_config.nu" ] | path join ) $fresh_install
+	creare_any_link ( [ $path_to_git_repo, "scripts/refresh_config.nu" ] | path join ) ( [ $path_to_config, "scripts/refresh_config_true.nu" ] | path join ) $fresh_install
 	
-	creare_any_link ( [ $path_to_git_repo, "scripts/hyprland.sh" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/hyprland.sh" ] | path join ) $fresh_install $path_to_git_repo $path_to_config
-	creare_any_link ( [ $path_to_git_repo, "scripts/update_system.nu" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/update_system.nu" ] | path join ) $fresh_install $path_to_git_repo $path_to_config
-	creare_any_link ( [ $path_to_git_repo, "scripts/link_files.nu" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/link_files.nu" ] | path join ) $fresh_install $path_to_git_repo $path_to_config
-	creare_any_link ( [ $path_to_git_repo, "scripts/refresh_config.nu" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/refresh_config.nu" ] | path join ) $fresh_install $path_to_git_repo $path_to_config
-	creare_any_link ( [ $path_to_git_repo, "scripts/refresh_config_true.nu" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/refresh_config_true.nu" ] | path join ) $fresh_install $path_to_git_repo $path_to_config
+	creare_any_link ( [ $path_to_git_repo, "scripts/hyprland.sh" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/hyprland.sh" ] | path join ) $fresh_install
+	creare_any_link ( [ $path_to_git_repo, "scripts/update_system.nu" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/update_system.nu" ] | path join ) $fresh_install
+	creare_any_link ( [ $path_to_git_repo, "scripts/link_files.nu" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/link_files.nu" ] | path join ) $fresh_install
+	creare_any_link ( [ $path_to_git_repo, "scripts/refresh_config.nu" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/refresh_config.nu" ] | path join ) $fresh_install
+	creare_any_link ( [ $path_to_git_repo, "scripts/refresh_config_true.nu" ] | path join ) ( [ $path_to_config, $path_to_home, $username, "personal_scripts/refresh_config_true.nu" ] | path join ) $fresh_install
 	
 	#######################################
 	
