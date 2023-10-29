@@ -2,9 +2,9 @@
 
 def creare_any_link [ start: string, destination: string, fresh_install: int ]: any -> any {
 	if $fresh_install == 1 {
-		ln -sf $start $destination
+		ln -sfr $start $destination
 	} else {
-		doas ln -sf $start $destination
+		doas ln -srf $start $destination
 	}
 }
 
@@ -37,9 +37,9 @@ def create_basic_home_manager_link [ module: string, fresh_install: int, path_to
 
 def copy_any_file [ start: string, destination: string, fresh_install: int ]: any -> any {
 	if $fresh_install == 1 {
-		cp $start $destination
+		cp -rf $start $destination
 	} else {
-		doas cp $start $destination
+		doas cp -rf $start $destination
 	}
 }
 
