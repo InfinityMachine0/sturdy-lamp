@@ -138,8 +138,60 @@ def main []: any -> int {
 	
 	mkdir $path_to_config
 	mkdir ( [ $path_to_config, "system" ] | path join )
+	
+	mkdir ( [ $path_to_config, "system/modules" ] | path join )
+
+	mkdir ( [ $path_to_config, "system/modules/bluetooth" ] | path join )
+	mkdir ( [ $path_to_config, "system/modules/btrfs" ] | path join )
+	mkdir ( [ $path_to_config, "system/modules/cups" ] | path join )
+	mkdir ( [ $path_to_config, "system/modules/doas" ] | path join )
+	mkdir ( [ $path_to_config, "system/modules/firewall" ] | path join )
+	mkdir ( [ $path_to_config, "system/modules/fonts" ] | path join )
+	mkdir ( [ $path_to_config, "system/modules/gpu" ] | path join )
+	mkdir ( [ $path_to_config, "system/modules/hyprland" ] | path join )
+	mkdir ( [ $path_to_config, "system/modules/keyboard" ] | path join )
+	mkdir ( [ $path_to_config, "system/modules/locale" ] | path join )
+	mkdir ( [ $path_to_config, "system/modules/networking" ] | path join )
+	mkdir ( [ $path_to_config, "system/modules/opengl" ] | path join )
+	mkdir ( [ $path_to_config, "system/modules/pipewire" ] | path join )
+	mkdir ( [ $path_to_config, "system/modules/platform" ] | path join )
+	mkdir ( [ $path_to_config, "system/modules/ssh" ] | path join )
+	mkdir ( [ $path_to_config, "system/modules/systemd-boot" ] | path join )
+	mkdir ( [ $path_to_config, "system/modules/trackpad" ] | path join )
+	mkdir ( [ $path_to_config, "system/modules/users" ] | path join )
+
 	mkdir ( [ $path_to_config, "home-manager" ] | path join )
+
+	mkdir ( [ $path_to_config, "home-manager/modules" ] | path join )
+	
+	mkdir ( [ $path_to_config, "home-manager/modules/bat" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager/modules/bottom" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager/modules/dunst" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager/modules/foot" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager/modules/fzf" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager/modules/git" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager/modules/gitui" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager/modules/gtk" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager/modules/home-path" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager/modules/hyprland" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager/modules/nixvim" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager/modules/nushell" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager/modules/qt" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager/modules/qutebrowser" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager/modules/rofi" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager/modules/starship" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager/modules/waybar" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager/modules/wezterm" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager/modules/xplr" ] | path join )
+	mkdir ( [ $path_to_config, "home-manager/modules/zellij" ] | path join )
+
 	mkdir ( [ $path_to_config, "values" ] | path join )
+
+	mkdir ( [ $path_to_config, "scripts" ] | path join )
+
+	mkdir ( [ "/mnt/home", $username, "wallpapers" ] | path join )
+
+	mkdir ( [ "/mnt/home", $username, "personal_scripts" ] | path join )
 
 	#######################################
 
