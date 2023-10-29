@@ -233,7 +233,9 @@ def main []: any -> int {
 
 	#######################################
 	
-	mv /mnt/etc/nixos/hardware-configuration.nix /mnt/etc/nixos/temp
+	cp -f /mnt/etc/nixos/hardware-configuration.nix /tmp
+
+	rm /mnt/etc/nixos/hardware-configuration.nix
 	
 	rm /mnt/etc/nixos/configuration.nix
 

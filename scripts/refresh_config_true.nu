@@ -7,7 +7,7 @@ let path_to_git_repo = ( doas open --raw ( [ $path_to_config, "values/path_to_gi
 
 let username = ( doas open --raw ( [ $path_to_config, "values/username.conf" ] | path join ) | str trim )
 
-doas cp ( [ $path_to_config, "system/hardware-config.nix" ] | path join | str trim ) /tmp
+doas mv -f ( [ $path_to_config, "system/hardware-config.nix" ] | path join | str trim ) /tmp
 
 doas rm -r ( [ $path_to_config, "system" ] | path join | str trim )
 doas rm -r ( [ $path_to_config, "home-manager" ] | path join | str trim )
