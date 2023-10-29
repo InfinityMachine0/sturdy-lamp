@@ -13,14 +13,14 @@ def to_continue []: any -> any {
 		print $prompt
 		$string_input = ( input | str trim )
 		if $string_input =~ "(?i)y" {
-			print "\n############\n"
+			print "############\n"
 			return
 		} else if $string_input =~ "(?i)n" { 
-			print "\n############\n"
+			print "############\n"
 			print "stoping the script"
 			exit
 		} else { 
-			print "\n"
+			print
 		}
 	}
 }
@@ -68,7 +68,7 @@ def format_platform [ platform: int ]: any -> any {
 def main []: any -> int {
 	let platform = ( select_thing "platform" "[1/2/3]" "1. laptop\n2. desktop\n3. virtualbox" )
 
-	print "\n"
+	print
 	
 	if $platform == -1 {
 		exit
@@ -78,7 +78,7 @@ def main []: any -> int {
 	
 	let gpu = ( select_thing "gpu" "[1/2]" "1. no gpu\n2. nvidia" )
 
-	print "\n"
+	print
 	
 	if $gpu == -1 {
 		exit
@@ -88,17 +88,17 @@ def main []: any -> int {
 	
 	let hostname = ( choose_thing "hostname" | str trim )
 
-	print "\n"
+	print
 	
 	let username = ( choose_thing "username" | str trim )
 
-	print "\n"
+	print
 	
 	#######################################
 	
 	let ssh_port = ( choose_thing "ssh port" | str trim )
 
-	print "\n"
+	print
 	
 	let ssh_ports = ( [ "[ ", $ssh_port, " ]" ] | str join | str trim )
 	
@@ -110,11 +110,11 @@ def main []: any -> int {
 	
 	let git_username = ( choose_thing "git username" | str trim )
 
-	print "\n"
+	print
 	
 	let git_email = ( choose_thing "git email" | str trim )	
 
-	print "\n"
+	print
 
 	to_continue
 	
@@ -122,7 +122,7 @@ def main []: any -> int {
 	
 	format_platform $platform
 
-	print "\n"
+	print
 
 	to_continue
 	
@@ -130,8 +130,8 @@ def main []: any -> int {
 	
 	git clone ( [ "https://github.com/InfinityMachine0/", $git_repo_name ] | str join ) /mnt/etc/nixos
 
-	print "\n"
-	
+	print
+
 	to_continue
 
 	#######################################
@@ -175,7 +175,7 @@ def main []: any -> int {
 	
 	nixos-generate-config --no-filesystems --root /mnt
 
-	print "\n"
+	print
 	
 	to_continue
 
@@ -189,7 +189,7 @@ def main []: any -> int {
 	
 	nu ( [ "/home/nixos", $git_repo_name, "scripts/link_files.nu" ] | path join ) 1
 	
-	print "\n"
+	print
 	
 	to_continue
 
