@@ -1,6 +1,6 @@
 { inputs, lib, config, pkgs, ... }:
 let
-  NixUser = USERNAME_REPLACE;
+  NixUser = "USERNAME_REPLACE";
 in 
 {
   ## main user settings

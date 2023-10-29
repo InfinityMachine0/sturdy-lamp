@@ -24,8 +24,8 @@
 
   outputs = inputs@{ self, nixpkgs, home-manager, nixvim, disko, ... }: 
   let
-    NixHost = HOSTNAME_REPLACE;
-    NixUser = USERNAME_REPLACE;
+    NixHost = "HOSTNAME_REPLACE";
+    NixUser = "USERNAME_REPLACE";
   in
   {
     # NixOS configuration entrypoint
