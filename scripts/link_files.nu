@@ -1,6 +1,12 @@
 #! /usr/bin/env nu
 
 def creare_any_link [ start: string, destination: string, fresh_install: int ]: any -> any {
+	print "\n#################"
+	print $start
+	print " "
+	print $destination
+	print "\n#################"
+
 	if $fresh_install == 1 {
 		ln -sfr $start $destination
 	} else {
@@ -36,6 +42,12 @@ def create_basic_home_manager_link [ module: string, fresh_install: int, path_to
 #######################################
 
 def copy_any_file [ start: string, destination: string, fresh_install: int ]: any -> any {
+	print "\n#################"
+	print $start
+	print " "
+	print $destination
+	print "\n#################"
+	
 	if $fresh_install == 1 {
 		cp -rf $start $destination
 	} else {
