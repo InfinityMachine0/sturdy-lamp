@@ -321,17 +321,17 @@ def main [ fresh_install: int = 0 ] any -> any {
 	
 	#######################################
 	
-	creare_any_link ( [ $path_to_git_repo, "system/configuration.nix" ] | path join ) ( [ $path_to_config, "system/configuration.nix" ] | path join ) $fresh_install $path_to_git_repo $path_to_config
+	creare_any_link ( [ $path_to_git_repo, "system/configuration.nix" ] | path join ) ( [ $path_to_config, "system/configuration.nix" ] | path join ) $fresh_install
 	
 	#######################################
 	
-	copy_any_file ( [ $path_to_thing, "temp/hardware-configuration.nix" ] | path join ) ( [ $path_to_config, "system/hardware-configuration.nix" ] | path join ) $fresh_install $path_to_git_repo $path_to_config
+	copy_any_file ( [ $path_to_thing, "temp/hardware-configuration.nix" ] | path join ) ( [ $path_to_config, "system/hardware-configuration.nix" ] | path join ) $fresh_install
 	
 	#######################################
 	
-	creare_any_link ( [ $path_to_git_repo, "flake.nix" ] | path join ) ( [ $path_to_config, "edit_this_flake.nix" ] | path join ) $fresh_install $path_to_git_repo $path_to_config
+	creare_any_link ( [ $path_to_git_repo, "flake.nix" ] | path join ) ( [ $path_to_config, "edit_this_flake.nix" ] | path join ) $fresh_install
 	
-	copy_any_file ( [ $path_to_git_repo, "flake.nix" ] | path join ) ( [ $path_to_config, "flake.nix" ] | path join ) $fresh_install $path_to_git_repo $path_to_config
+	copy_any_file ( [ $path_to_git_repo, "flake.nix" ] | path join ) ( [ $path_to_config, "flake.nix" ] | path join ) $fresh_install
 	
 	read_from ( [ $path_to_config, "flake.nix" ] | path join ) $fresh_insta | str replace "USERNAME_REPLACE" $username | save_to_file ( [ $path_to_config, "flake.nix" ] | path join ) $fresh_insta
 	read_from ( [ $path_to_config, "flake.nix" ] | path join ) $fresh_insta | str replace "HOSTNAME_REPLACE" $hostname | save_to_file ( [ $path_to_config, "flake.nix" ] | path join ) $fresh_insta
