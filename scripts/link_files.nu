@@ -150,7 +150,7 @@ def main [ fresh_install: int = 0 ] any -> any {
 
 	let path_to_config = ( [ $path_to_root, "etc/nixos/config_dir" ] | path join | str trim )
 	
-	let git_repo_name = ( read_from ( [ $path_to_config, "values/git_repo_name.conf" ] | path join ) )
+	let git_repo_name = ( read_from ( [ $path_to_config, "values/git_repo_name.conf" ] | path join ) $fresh_install )
 	
 	let path_to_git_repo = ( [ $path_to_root, "etc/nixos/", $git_repo_name ] | path join | str trim ) 
 	let path_to_thing = ( [ $path_to_root, "etc/nixos" ] | path join | str trim  )
@@ -158,31 +158,31 @@ def main [ fresh_install: int = 0 ] any -> any {
 	
 	#######################################
 	
-	let platform = ( read_from ( [ $path_to_config, "values/platform.conf" ] | path join ) $fresh_instal | str trim | into int )
+	let platform = ( read_from ( [ $path_to_config, "values/platform.conf" ] | path join ) $fresh_install | str trim | into int )
 	
 	#######################################
 	
-	let gpu = ( read_from ( [ $path_to_config, "values/gpu.conf" ] | path join ) $fresh_instal | str trim | into int )
+	let gpu = ( read_from ( [ $path_to_config, "values/gpu.conf" ] | path join ) $fresh_install | str trim | into int )
 	
 	#######################################
 	
-	let hostname = ( read_from ( [ $path_to_config, "values/hostname.conf" ] | path join ) $fresh_instal | str trim )
+	let hostname = ( read_from ( [ $path_to_config, "values/hostname.conf" ] | path join ) $fresh_install | str trim )
 	
-	let username = ( read_from ( [ $path_to_config, "values/username.conf" ] | path join ) $fresh_instal | str trim )
-	
-	#######################################
-	
-	let ssh_ports = ( read_from ( [ $path_to_config, "values/ssh_ports.conf" ] | path join ) $fresh_instal | str trim )
-	
-	let tcp_ports = ( read_from ( [ $path_to_config, "values/tcp_ports.conf" ] | path join ) $fresh_instal | str trim )
-	
-	let udp_ports = ( read_from ( [ $path_to_config, "values/udp_ports.conf" ] | path join ) $fresh_instal | str trim )
+	let username = ( read_from ( [ $path_to_config, "values/username.conf" ] | path join ) $fresh_install | str trim )
 	
 	#######################################
 	
-	let git_username = ( read_from ( [ $path_to_config, "values/git_username.conf" ] | path join ) $fresh_instal | str trim )
+	let ssh_ports = ( read_from ( [ $path_to_config, "values/ssh_ports.conf" ] | path join ) $fresh_install | str trim )
 	
-	let git_email = ( read_from ( [ $path_to_config, "values/git_email.conf" ] | path join ) $fresh_instal | str trim )
+	let tcp_ports = ( read_from ( [ $path_to_config, "values/tcp_ports.conf" ] | path join ) $fresh_install | str trim )
+	
+	let udp_ports = ( read_from ( [ $path_to_config, "values/udp_ports.conf" ] | path join ) $fresh_install | str trim )
+	
+	#######################################
+	
+	let git_username = ( read_from ( [ $path_to_config, "values/git_username.conf" ] | path join ) $fresh_install | str trim )
+	
+	let git_email = ( read_from ( [ $path_to_config, "values/git_email.conf" ] | path join ) $fresh_install | str trim )
 	
 	#######################################
 	
