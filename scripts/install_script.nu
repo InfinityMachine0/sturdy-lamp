@@ -248,6 +248,7 @@ def main []: any -> any {
 	to_continue
 
 	#######################################
-	
-	print ( [ $path_to_config, "#", $hostname ] | str join )
+	print ( [ "nixos-install --flake " ,$path_to_config, "#", $hostname ] | str join )
+	print "             ^"
+	print "execute that | command"
 }
