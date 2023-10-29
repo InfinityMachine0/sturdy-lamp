@@ -128,7 +128,7 @@ def main []: any -> int {
 	
 	#######################################
 	
-	git clone ( [ "https://github.com/InfinityMachine0/", $git_repo_name ] | str join ) /mnt/etc/nixos
+	git clone ( [ "https://github.com/InfinityMachine0/", $git_repo_name ] | str join ) ( [ "/mnt/etc/nixos", $git_repo_name ] | path join )
 
 	print " "
 
