@@ -9,4 +9,4 @@ let username = ( doas open --raw ( [ $path_to_config, "values/username.conf" ] |
 
 doas nix flake update ( [ $path_to_config, "flake.nix" ] | path join | str trim )
 
-doas nixos-rebuild switch --flake ( [ ( [ $path_to_config, "flake.nix" ] | path join | str trim ), $hostname ] | str join | str trim )
+doas nixos-rebuild switch --flake ( [ $path_to_config, "#" ,$hostname ] | str join)
