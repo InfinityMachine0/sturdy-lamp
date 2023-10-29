@@ -250,4 +250,6 @@ def main []: any -> int {
 	#######################################
 	
 	print ( [ $path_to_config, "#", $hostname ] | str join )
+
+	return 0
 }
