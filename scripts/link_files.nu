@@ -234,7 +234,7 @@ def main [ fresh_install: int = 0 ] any -> any {
 	
 	#######################################
 	
-	copy_any_file ( [ $path_to_git_repo, "home-manager/modules/wallpapers" ] | path join ) ( [ "/mnt/home", $username ] | path join )
+	copy_any_file ( [ $path_to_git_repo, "home-manager/modules/wallpapers" ] | path join ) ( [ "/mnt/home", $username ] | path join ) $fresh_install
 	
 	#######################################
 	
