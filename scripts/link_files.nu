@@ -333,7 +333,7 @@ def main [ fresh_install: int = 0 ] any -> any {
 	
 	copy_any_file ( [ $path_to_git_repo, "flake.nix" ] | path join ) ( [ $path_to_config, "flake.nix" ] | path join ) $fresh_install
 	
-	read_from ( [ $path_to_config, "flake.nix" ] | path join ) $fresh_insta | str replace "USERNAME_REPLACE" $username | save_to_file ( [ $path_to_config, "flake.nix" ] | path join ) $fresh_insta
-	read_from ( [ $path_to_config, "flake.nix" ] | path join ) $fresh_insta | str replace "HOSTNAME_REPLACE" $hostname | save_to_file ( [ $path_to_config, "flake.nix" ] | path join ) $fresh_insta
+	read_from ( [ $path_to_config, "flake.nix" ] | path join ) $fresh_install | str replace "USERNAME_REPLACE" $username | save_to_file ( [ $path_to_config, "flake.nix" ] | path join ) $fresh_insta
+	read_from ( [ $path_to_config, "flake.nix" ] | path join ) $fresh_install | str replace "HOSTNAME_REPLACE" $hostname | save_to_file ( [ $path_to_config, "flake.nix" ] | path join ) $fresh_insta
 }
 
