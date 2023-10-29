@@ -13,10 +13,10 @@ def to_continue []: any -> any {
 		print $prompt
 		$string_input = ( input | str trim )
 		if $string_input =~ "(?i)y" {
-			print "############\n"
+			print "\n############\n"
 			return
 		} else if $string_input =~ "(?i)n" { 
-			print "############\n"
+			print "\n############\n"
 			print "stoping the script"
 			exit
 		} else { 
