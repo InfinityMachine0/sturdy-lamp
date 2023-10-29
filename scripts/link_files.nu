@@ -396,7 +396,7 @@ def main [ fresh_install: int = 0 ] any -> any {
 	
 	#######################################
 	
-	copy_any_file ( [ $path_to_thing, "temp/hardware-configuration.nix" ] | path join ) ( [ $path_to_config, "system/hardware-configuration.nix" ] | path join ) $fresh_install
+	mv -f ( [ "/tmp/hardware-configuration.nix" ] | path join ) ( [ $path_to_config, "system/hardware-configuration.nix" ] | path join )
 	
 	#######################################
 	
