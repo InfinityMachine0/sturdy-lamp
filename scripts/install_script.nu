@@ -66,11 +66,6 @@ def format_platform [ platform: int ]: any -> any {
 #######################################
 
 def main []: any -> int {
-
-	to_continue
-
-	#######################################
-
 	let platform = ( select_thing "platform" "[1/2/3]" "1. laptop\n2. desktop\n3. virtualbox" )
 
 	print "\n"
@@ -127,11 +122,15 @@ def main []: any -> int {
 	
 	format_platform $platform
 
+	print "\n"
+
 	to_continue
 	
 	#######################################
 	
 	git clone ( [ "https://github.com/InfinityMachine0/", $git_repo_name ] | str join ) /mnt/etc/nixos
+
+	print "\n"
 	
 	to_continue
 
@@ -176,6 +175,8 @@ def main []: any -> int {
 	
 	nixos-generate-config --no-filesystems --root /mnt
 
+	print "\n"
+	
 	to_continue
 
 	#######################################
@@ -187,6 +188,8 @@ def main []: any -> int {
 	#######################################
 	
 	nu ( [ "/home/nixos", $git_repo_name, "scripts/link_files.nu" ] | path join ) 1
+	
+	print "\n"
 	
 	to_continue
 
