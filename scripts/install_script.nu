@@ -249,5 +249,5 @@ def main []: any -> int {
 
 	#######################################
 	
-	nixos-install --flake ( [ ( [ $path_to_config, "flake.nix" ] | path join | str trim ), $hostname ] | str join )
+	nixos-install --flake ( [ ( [ $path_to_config, "flake.nix" ] | path join ), "#", $hostname ] | str join )
 }
