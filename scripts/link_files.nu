@@ -2,9 +2,9 @@
 
 def creare_any_link [ start: string, destination: string, fresh_install: int ]: any -> any {
 	if $fresh_install == 1 {
-		ln -s $start $destination
+		ln -sf $start $destination
 	} else {
-		doas ln -s $start $destination
+		doas ln -sf $start $destination
 	}
 }
 
@@ -71,9 +71,9 @@ def read_from [ file: string, fresh_install: int ]: any -> string {
 
 def save_to_file [ file: string, fresh_install: int ]: any -> any {
 	if $fresh_install == 1 {
-		$in | save $file
+		$in | save -f $file
 	} else {
-		$in | doas save $file
+		$in | doas save -f $file
 	}
 }
 
